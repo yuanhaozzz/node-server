@@ -43,6 +43,8 @@ app.use(
                 'http://localhost:3001',
                 'http://192.168.1.6:3002',
                 'http://yuanhao-web.cn',
+                'http://yuanhao-web.cn:3001',
+                'http://yuanhao-web.cn:3002',
             ];
             let url = ctx.header.referer.match(/(\w+):\/\/([^/:]+)(:\d*)?/)[0];
             console.log(url, '===2');
