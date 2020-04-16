@@ -45,7 +45,9 @@ app.use(
                 'http://yuanhao-web.cn',
             ];
             let url = ctx.header.referer.match(/(\w+):\/\/([^/:]+)(:\d*)?/)[0];
+            console.log(url, '===2');
             if (whiteList.includes(url)) {
+                console.log(url, '===1');
                 return '*'; //注意，这里域名末尾不能带/，否则不成功，所以在之前我把/通过substr干掉了
             }
         },
