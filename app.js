@@ -30,6 +30,7 @@ app.use(async (ctx, next) => {
 app.use(
     cors({
         origin: function (ctx) {
+            console.log(ctx.header.referer, '----');
             // 服务器发送的请求中，请求头没有referer，通过ip来加入白名单
             if (ctx.request.ip.includes('127.0.0.1')) {
                 ctx.header.referer = 'http://localhost:3001';
