@@ -31,11 +31,15 @@ app.use(
     cors({
         origin: function (ctx) {
             console.log(ctx.header.referer, '----');
+            console.log(ctx.header.host, '===');
             // 服务器发送的请求中，请求头没有referer，通过ip来加入白名单
             if (ctx.request.ip.includes('127.0.0.1')) {
                 ctx.header.referer = 'http://localhost:3001';
             }
             if (ctx.request.ip.includes('132.232.1.48')) {
+                ctx.header.referer = 'http://yuanhao-web.cn';
+            }
+            if (ctx.header.host.includes('yuanhao-web.c')) {
                 ctx.header.referer = 'http://yuanhao-web.cn';
             }
             let whiteList = [
