@@ -6,7 +6,7 @@ let upload = new Router({});
 upload.post('/images', uploadConfig.single('file'), async (ctx, next) => {
     ctx.body = {
         path: '/uploads/' + ctx.req.file.filename,
-        filename: 'http://localhost:3003/uploads/' + ctx.req.file.filename //返回文件名
+        filename: 'http://yuanhao-web.cn:3003/uploads/' + ctx.req.file.filename, //返回文件名
     };
 });
 
