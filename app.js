@@ -31,9 +31,11 @@ app.use(
     cors({
         origin: function (ctx) {
             // 服务器发送的请求中，请求头没有referer，通过ip来加入白名单
-            console.log(ctx.request.ip, '-ip---------------------');
             if (ctx.request.ip.includes('127.0.0.1')) {
                 ctx.header.referer = 'http://localhost:3001';
+            }
+            if (ctx.request.ip.includes('132.232.1.48')) {
+                ctx.header.referer = 'http://yuanhao-web.cn';
             }
             let whiteList = [
                 'http://localhost:3002',
