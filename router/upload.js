@@ -4,7 +4,7 @@ let upload = new Router({});
 
 // 上传图片
 upload.post('/images', uploadConfig.single('file'), async (ctx, next) => {
-    let domin = process.env.NODE_ENV === 'development' ? 'http://localhost:3003/uploads/' : 'http://yuanhao-web.cn/uploads/'
+    let domin = process.env.NODE_ENV === 'development' ? 'http://localhost:3003/server/uploads/' : 'http://yuanhao-web.cn/server/uploads/'
     console.log(domin)
     ctx.body = {
         path: '/uploads/' + ctx.req.file.filename,
