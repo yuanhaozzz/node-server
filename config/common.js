@@ -5,11 +5,11 @@ const multer = require('koa-multer');
  */
 let storage = multer.diskStorage({
     //文件保存路径
-    destination: function(req, file, cb) {
-        cb(null, 'public/uploads/');
+    destination: function (req, file, cb) {
+        cb(null, 'public/server/uploads/');
     },
     //修改文件名称
-    filename: function(req, file, cb) {
+    filename: function (req, file, cb) {
         cb(null, file.originalname);
     }
 });

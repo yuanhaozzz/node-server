@@ -36,7 +36,7 @@ exports.updateLoginInfo = (id, ip) => {
  */
 exports.getArticleList = options => {
     let { type, page, pageSize } = options;
-    return `select id, title, description, author, cover, image_url, page_views, release_time, type from article where type=${type}  order by release_time desc limit ${(page -
+    return `select id, title, description, author, cover, image_url, page_views, release_time, type, online from article where type=${type}  order by release_time desc limit ${(page -
         1) *
         pageSize}, ${pageSize}`;
 };
@@ -89,7 +89,7 @@ exports.searchArticleCount = type => {
  * @param {Number} type   1 热门文章 2 推荐文章
  */
 exports.getClassifyArticleList = type => {
-    return `select id, title, description, author, cover, image_url, page_views, release_time, type from article where type=${type}  order by release_time desc limit 0, 8`;
+    return `select id, title, description, author, cover, image_url, page_views, release_time, type, online from article where type=${type}  order by release_time desc limit 0, 8`;
 };
 
 /**
@@ -98,7 +98,7 @@ exports.getClassifyArticleList = type => {
  */
 exports.getAllArticleList = options => {
     let { page, pageSize } = options;
-    return `select id, title, description, author, cover, image_url, page_views, release_time, type from article order by release_time desc limit ${(page -
+    return `select id, title, description, author, cover, image_url, page_views, release_time, type, online from article order by release_time desc limit ${(page -
         1) *
         pageSize}, ${pageSize}`;
 };
