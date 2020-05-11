@@ -34,6 +34,7 @@ exports.updateLoginInfo = (id, ip) => {
  * 获取文章列表
  * @param {Int} type   1 热门文章 2 推荐文章
  */
+
 exports.getArticleList = options => {
     let { type, page, pageSize } = options;
     return `select id, title, description, author, cover, image_url, page_views, release_time, type, online from article where type=${type}  order by release_time desc limit ${(page -

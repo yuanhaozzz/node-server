@@ -46,8 +46,8 @@ exports.encryption = password => {
         //生成salt的迭代次数
         const saltRounds = 10;
         //生成salt并获取hash值
-        bcrypt.genSalt(saltRounds, function(err, salt) {
-            bcrypt.hash(password, salt, function(err, hash) {
+        bcrypt.genSalt(saltRounds, function (err, salt) {
+            bcrypt.hash(password, salt, function (err, hash) {
                 // hash生成的密码
                 resolve(hash);
             });
@@ -65,7 +65,7 @@ exports.decrypt = (password, dbPassword) => {
     console.log(password, '---------password');
     console.log(dbPassword, '---------dbPassword');
     return new Promise(resolve => {
-        bcrypt.compare(password, dbPassword, function(err, hash) {
+        bcrypt.compare(password, dbPassword, function (err, hash) {
             resolve(hash);
         });
     });
@@ -77,7 +77,7 @@ exports.changeResponseFormat = data => {
             for (var j in item) {
                 if (item.hasOwnProperty(j)) {
                     if (j.includes('_')) {
-                        key = j.replace(/\_(\w)/g, function(all, letter) {
+                        key = j.replace(/\_(\w)/g, function (all, letter) {
                             return letter.toUpperCase();
                         });
                         item[key] = item[j];
@@ -91,7 +91,7 @@ exports.changeResponseFormat = data => {
         for (var i in data) {
             if (data.hasOwnProperty(i)) {
                 if (i.includes('_')) {
-                    key = i.replace(/\_(\w)/g, function(all, letter) {
+                    key = i.replace(/\_(\w)/g, function (all, letter) {
                         return letter.toUpperCase();
                     });
                     data[key] = data[i];
@@ -154,7 +154,7 @@ exports.updateTabledata = data => {
     for (let i in data) {
         if (data.hasOwnProperty(i)) {
             if (typeof data[i] === 'string') {
-                str += ` ${i}='${data[i]}',`;
+                str += ` ${i}="${data[i]}",`;
             } else {
                 str += ` ${i}=${data[i]},`;
             }
