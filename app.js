@@ -26,7 +26,10 @@ app.use(async (ctx, next) => {
         responseError(ctx, 0, '未知错误');
     }
 });
-// 具体参数我们在后面进行解释
+
+/**
+ * 跨域
+ */
 app.use(
     cors({
         origin: function (ctx) {
