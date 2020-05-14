@@ -7,9 +7,13 @@ const {
     deleteArticle,
     searchArticleCount,
     getClassifyArticleList,
-    getAllArticleList,
-    updateData
+  
 } = require('../sql/sql')
+const {
+    getClientArticleList,
+    updateData
+  
+} = require('../sql/clientSql')
 const {
     responseSuccess,
     responseError,
@@ -80,9 +84,9 @@ exports.deleteArticle = async ctx => {
  */
 exports.getHomeList = async ctx => {
     let {type} =  ctx.request.body
-    let common = { page: 1, pageSize: 8, type }
+    let params = { page: 1, pageSize: 8, type }
     let hotList = await connectPool(getClassifyArticleList(1))
-    let list = await connectPool(getAllArticleList(common))
+    let list = await connectPool(getClientArticleList(params))
     responseSuccess(ctx, {
         hotList: changeResponseFormat(hotList),
         list: changeResponseFormat(list)

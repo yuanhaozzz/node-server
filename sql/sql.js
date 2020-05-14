@@ -93,24 +93,3 @@ exports.getClassifyArticleList = type => {
     return `select id, title, description, author, cover, image_url, page_views, release_time, type, online from article where type=${type}  order by release_time desc limit 0, 8`
 }
 
-/**
- * 获取所有文章  时间降序
- * @param {Object} options 数据集合
- */
-exports.getAllArticleList = options => {
-    let { page, pageSize, type } = options
-    // order by release_time desc
-    let string = ''
-    return `select id, title, description, author, cover, image_url, page_views, release_time, type, online from article ${string} limit ${(page -
-        1) *
-        pageSize}, ${pageSize}`
-}
-
-/**
- * 更新表字段
- * @param {Object} options 需要更新的字段
- */
-exports.updateData = options => {
-    let id = options.id
-    return `update article set ${updateTabledata(options)} where id=${id}`
-}
