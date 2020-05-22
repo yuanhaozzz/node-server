@@ -6,7 +6,12 @@ const {
     editArticle,
     deleteArticle,
     getHomeList,
-    updateData
+    updateData,
+    getStatisticst,
+    updateStatisticst,
+    getCommentList,
+    addComment,
+    updateComment
 } = require('../controls/blog');
 let blog = new Router({});
 
@@ -55,7 +60,23 @@ blog.post('/client/home/list', getHomeList);
 // 文章详情
 blog.post('/client/article/detail', getArticleDetail);
 
-// 更新数据
+// 更新文章数据（点赞等）
 blog.post('/client/update/data', updateData);
+
+// 获取统计数据
+blog.post('/client/statisticst', getStatisticst);
+
+// 更新统计数据
+blog.post('/client/update/statisticst', updateStatisticst);
+
+// 获取评论
+blog.post('/client/comment/list', getCommentList);
+
+// 添加评论
+blog.post('/client/comment/add', addComment);
+
+// 更新评论字段
+blog.post('/client/comment/update', updateComment);
+
 
 module.exports = blog;

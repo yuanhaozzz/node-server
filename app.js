@@ -45,6 +45,9 @@ app.use(
             if (ctx.header.host.includes('yuanhao-web.c')) {
                 ctx.header.referer = 'http://yuanhao-web.cn';
             }
+            if (!ctx.header.referer) {
+                ctx.header.referer = 'http://localhost:3001';
+            }
             let whiteList = [
                 'http://localhost:3002',
                 'http://localhost:3001',

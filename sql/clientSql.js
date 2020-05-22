@@ -1,5 +1,7 @@
 let {
-    updateTabledata
+    updateTabledata,
+    getObjectKey,
+    getObjectValue
 } = require('../utils/common')
 /**
  * 获取文章
@@ -9,7 +11,7 @@ exports.getClientArticleList = options => {
     let {page, pageSize, type} = options
     // order by release_time desc
     // 查询字段
-    let queryDbField = ' id, title, description, author, cover, image_url, page_views, release_time, type, online from article '
+    let queryDbField = ' id, title, description, author, cover, image_url, page_views, release_time, type, online, likes, comment from article '
     // 查询条数
     let pagination = `${(page - 1) * pageSize}, ${pageSize}`
     switch(type) {
@@ -26,6 +28,9 @@ exports.getClientArticleList = options => {
         case 4:
             // 分类  源码 面试题
             return getCategoryArticleList(queryDbField, pagination, options)
+        case 5:
+            // 关键字
+            return getKeyWordArticleList(queryDbField, pagination, options)
     }
    
 }
@@ -68,6 +73,18 @@ getCategoryArticleList = (field, page, options) => {
     return `select ${field} where type=${type} order by page_views desc limit ${page}` 
 }
 
+/**
+ * 搜索关键词
+ * @param {String} field    返回字段
+ * @param {String} page     分页
+ * @param {Object} options  keyword 关键词
+ */
+getKeyWordArticleList = (field, page, options) => {
+    let {keyword} = options
+    console.log(keyword)
+    return `select * from article where title like '%${keyword}%'` 
+}
+
 
 /**
  * 更新表字段
@@ -77,3 +94,64 @@ exports.updateData = options => {
     let id = options.id
     return `update article set ${updateTabledata(options)} where id=${id}`
 }
+
+/**
+ * 获取首页信息
+ */
+exports.getStatisticst = () => {
+    return `select * from statistics`
+}
+
+/**
+ * 更新首页信息
+ */
+exports.updateStatisticst = options => {
+    return `update statistics set ${updateTabledata(options)}`
+}
+
+/**
+ * 获取文章数量
+ */
+exports.getArticleCount = () => {
+    return `select count(id) as count from article`
+}
+
+/**
+ * 获取评论列表
+ */
+exports.getCommentList = articleId => {
+    return `select * from level_one_comment where article_id=${articleId} order by create_time desc`
+}
+
+/**
+ * 获取二级评论列表
+ */
+exports.getCommentTwoLevelList = parentId => {
+    return `select * from level_two_comment where parent_id=${parentId} order by create_time desc`
+}
+
+/**
+ * 添加一级评论
+ * @param {Object} params 插入字段
+ */
+exports.addLevel1Comment = params => {
+    return `insert into  level_one_comment (id, ${getObjectKey(params)}) values(null, ${getObjectValue(params)})`
+}
+
+/**
+ * 添加二级评论
+ * @param {Object} params 插入字段
+ */
+exports.addLevel2Comment = params => {
+    return `insert into  level_two_comment (id, ${getObjectKey(params)}) values(null, ${getObjectValue(params)})`
+}
+
+
+/**
+ * 更新一级评论
+ * @param {Object} params 插入字段
+ */
+exports.updateLevel1Comment = params => {
+    return `update level_one_comment set ${updateTabledata(params)}`
+}
+
