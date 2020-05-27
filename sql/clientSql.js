@@ -81,7 +81,6 @@ getCategoryArticleList = (field, page, options) => {
  */
 getKeyWordArticleList = (field, page, options) => {
     let { keyword } = options;
-    console.log(keyword);
     return `select * from article where title like '%${keyword}%'`;
 };
 
@@ -91,7 +90,6 @@ getKeyWordArticleList = (field, page, options) => {
  * @param {Object} options      需要更新的字段
  */
 exports.updateData = (table = 'article', options) => {
-    console.log(options);
     let id = options.id;
     return `update ${table} set ${updateTabledata(options)} where id=${id}`;
 };
@@ -136,7 +134,6 @@ exports.getCommentTwoLevelList = (parentId) => {
  * @param {Object} params 插入字段
  */
 exports.addLevel1Comment = (params) => {
-    console.log(params, '====');
     return `insert into  level_one_comment (id, ${getObjectKey(
         params
     )}) values(null, ${getObjectValue(params)})`;
@@ -147,7 +144,6 @@ exports.addLevel1Comment = (params) => {
  * @param {Object} params 插入字段
  */
 exports.addLevel2Comment = (params) => {
-    console.log(params, '-------------');
     return `insert into  level_two_comment (id, ${getObjectKey(
         params
     )}) values(null, ${getObjectValue(params)})`;
@@ -162,4 +158,24 @@ exports.getUpdateField = (table, options) => {
     return `select ${getObjectKey(options)} from ${table} where id=${
         options.id
     }`;
+};
+
+/**
+ * 获取列表
+ * @param {String} table  表名
+ * @param {String} condition  列表条件
+ */
+exports.getList = (table, condition) => {
+    return `select * from ${table} ${condition}`;
+};
+
+/**
+ * 添加数据
+ * @param {String}   table      表名
+ * @params {Object}  options    更新字段
+ */
+exports.add = (table, options) => {
+    return `insert into ${table} (id, ${getObjectKey(
+        options
+    )}) values(null, ${getObjectValue(options)})`;
 };

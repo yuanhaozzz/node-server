@@ -11,7 +11,9 @@ const {
     updateStatisticst,
     getCommentList,
     addComment,
-    updateComment
+    updateComment,
+    getMessageList,
+    addMessage,
 } = require('../controls/blog');
 let blog = new Router({});
 
@@ -78,5 +80,10 @@ blog.post('/client/comment/add', addComment);
 // 更新评论字段
 blog.post('/client/comment/update', updateComment);
 
+// 获取留言板列表
+blog.post('/client/message/list', getMessageList);
+
+// 添加留言
+blog.post('/client/message/add', addMessage);
 
 module.exports = blog;

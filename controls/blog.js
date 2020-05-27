@@ -19,6 +19,8 @@ const {
     addLevel2Comment,
     getCommentTwoLevelList,
     getUpdateField,
+    getList,
+    add,
 } = require('../sql/clientSql');
 const {
     responseSuccess,
@@ -126,7 +128,7 @@ exports.getArticleDetail = async (ctx) => {
  */
 exports.updateData = async (ctx) => {
     let update = await connectPool(
-        updateData(changeReuestFormat(ctx.request.body))
+        updateData('article', changeReuestFormat(ctx.request.body))
     );
     responseSuccess(ctx, {});
 };
@@ -199,14 +201,12 @@ exports.addComment = async (ctx) => {
  */
 exports.updateComment = async (ctx) => {
     let params = ctx.request.body;
-    console.log(params, '-------------');
     let comment = await connectPool(
         getUpdateField(
             params.type === 1 ? 'level_one_comment' : 'level_two_comment',
             changeReuestFormat(params)
         )
     );
-    console.log(comment, '===================');
     if (params.favorite) {
         comment[0].favorite += 1;
     } else {
@@ -225,6 +225,35 @@ exports.updateComment = async (ctx) => {
             updateData('level_two_comment', changeReuestFormat(comment[0]))
         );
     }
+
+    responseSuccess(ctx, {});
+};
+
+/**
+ * 获取留言板列表
+ */
+exports.getMessageList = async (ctx) => {
+    let list = await connectPool(
+        getList('message', 'where type=1 order by create_time desc')
+    );
+    for (var i = 0; i < list.length; i++) {
+        let item = list[i];
+        item.sub = changeResponseFormat(
+            await connectPool(
+                getList('message', `where parent_id=${item.id} and type=2`)
+            )
+        );
+    }
+    responseSuccess(ctx, {
+        list: changeResponseFormat(list),
+    });
+};
+
+/**
+ * 添加留言
+ */
+exports.addMessage = async (ctx) => {
+    await connectPool(add('message', changeReuestFormat(ctx.request.body)));
 
     responseSuccess(ctx, {});
 };
