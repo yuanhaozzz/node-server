@@ -14,6 +14,7 @@ const {
     updateComment,
     getMessageList,
     addMessage,
+    updateArticle,
 } = require('../controls/blog');
 let blog = new Router({});
 
@@ -35,6 +36,9 @@ blog.post('/hot/article/detail', getArticleDetail);
 // 删除
 blog.post('/hot/article/delete', deleteArticle);
 
+// 更新
+blog.post('/hot/article/update', updateArticle);
+
 /**
  * 推荐文章
  */
@@ -54,7 +58,7 @@ blog.post('/recommend/article/detail', getArticleDetail);
 blog.post('/recommend/article/delete', deleteArticle);
 
 /**
- * 客户端
+ * 客户端---------------------------------------------------
  */
 // 首页列表
 blog.post('/client/home/list', getHomeList);

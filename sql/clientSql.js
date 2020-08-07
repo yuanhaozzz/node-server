@@ -41,7 +41,7 @@ exports.getClientArticleList = (options) => {
  * @param {String} page  分页
  */
 getAllArticleList = (field, page) => {
-    return `select ${field} limit ${page}`;
+    return `select ${field}  where online=1 limit ${page}`;
 };
 
 /**
@@ -50,7 +50,7 @@ getAllArticleList = (field, page) => {
  * @param {String} page  分页
  */
 getNewestArticleList = (field, page) => {
-    return `select ${field} order by release_time desc limit ${page}`;
+    return `select ${field}  where online=1 order by release_time desc limit ${page}`;
 };
 
 /**
@@ -59,7 +59,7 @@ getNewestArticleList = (field, page) => {
  * @param {String} page  分页
  */
 getHotArticleList = (field, page) => {
-    return `select ${field} order by page_views desc limit ${page}`;
+    return `select ${field}  where online=1 order by page_views desc limit ${page}`;
 };
 
 /**
@@ -70,7 +70,7 @@ getHotArticleList = (field, page) => {
  */
 getCategoryArticleList = (field, page, options) => {
     let { type } = options;
-    return `select ${field} where type=${type} order by page_views desc limit ${page}`;
+    return `select ${field} where type=${type} and online=1 order by page_views desc limit ${page}`;
 };
 
 /**
@@ -81,7 +81,7 @@ getCategoryArticleList = (field, page, options) => {
  */
 getKeyWordArticleList = (field, page, options) => {
     let { keyword } = options;
-    return `select * from article where title like '%${keyword}%'`;
+    return `select * from article where  online=1 and title like '%${keyword}%'`;
 };
 
 /**

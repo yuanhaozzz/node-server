@@ -93,3 +93,14 @@ exports.getClassifyArticleList = type => {
     return `select id, title, description, author, cover, image_url, page_views, release_time, type, online from article where type=${type}  order by release_time desc limit 0, 8`
 }
 
+/**
+ * 更新字段
+ * @param {String} table   表名
+ * @param {Object} options 集合
+ */
+exports.updateField = (table, options) => {
+    let id = options.id
+    delete options.id
+    return `update ${table} set ${updateTabledata(options)} where id=${id}`
+}
+

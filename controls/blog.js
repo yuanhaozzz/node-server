@@ -7,6 +7,7 @@ const {
     deleteArticle,
     searchArticleCount,
     getClassifyArticleList,
+    updateField,
 } = require('../sql/sql');
 const {
     getClientArticleList,
@@ -82,6 +83,15 @@ exports.getArticleDetail = async (ctx) => {
 exports.deleteArticle = async (ctx) => {
     let { articleId } = ctx.request.body;
     let article = await connectPool(deleteArticle(articleId));
+    responseSuccess(ctx, {});
+};
+
+/**
+ * 更新字段
+ *
+ */
+exports.updateArticle = async (ctx) => {
+    await connectPool(updateField('article', ctx.request.body));
     responseSuccess(ctx, {});
 };
 
